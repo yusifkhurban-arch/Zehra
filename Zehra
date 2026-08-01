@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Trend-inspired Shop — Home</title>
+  <meta name="description" content="A modern e-commerce front-end demo inspired by Trendyol. Responsive product grid, filters, search, and cart." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="logo" href="#" aria-label="Trend-inspired Shop">TS<span class="accent">hop</span></a>
+
+      <form id="searchForm" class="search" role="search" aria-label="Search products">
+        <label for="searchInput" class="visually-hidden">Search</label>
+        <input id="searchInput" name="q" type="search" placeholder="Search for products, brands and categories" />
+        <button type="submit" aria-label="Search">Search</button>
+      </form>
+
+      <nav class="header-actions" aria-label="User menu">
+        <button id="favoritesBtn" class="icon-btn" aria-label="Wishlist">♡</button>
+        <button id="accountBtn" class="icon-btn" aria-label="Account">👤</button>
+        <button id="cartBtn" class="icon-btn cart-btn" aria-label="Open cart" aria-haspopup="dialog" aria-controls="cartDrawer">
+          🛒 <span id="cartCount" class="cart-count" aria-hidden="true">0</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="container categories">
+      <ul class="category-list" role="list">
+        <li><button class="category-chip" data-category="">All</button></li>
+        <li><button class="category-chip" data-category="women">Women</button></li>
+        <li><button class="category-chip" data-category="men">Men</button></li>
+        <li><button class="category-chip" data-category="kids">Kids</button></li>
+        <li><button class="category-chip" data-category="home">Home</button></li>
+        <li><button class="category-chip" data-category="electronics">Electronics</button></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Featured">
+      <div class="carousel" id="heroCarousel" aria-roledescription="carousel">
+        <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
+        <div class="carousel-track" id="carouselTrack">
+          <div class="slide" style="background-image:url('https://picsum.photos/id/1018/1200/400');">
+            <div class="slide-content">
+              <h1>New Season Looks</h1>
+              <p>Find styles you love — fresh arrivals every week.</p>
+              <a class="btn" href="#products">Shop New</a>
+            </div>
+          </div>
+          <div class="slide" style="background-image:url('https://picsum.photos/id/1025/1200/400');">
+            <div class="slide-content">
+              <h1>Home & Living</h1>
+              <p>Upgrade your space with curated picks.</p>
+              <a class="btn" href="#products">Explore Home</a>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-btn next" aria-label="Next slide">›</button>
+      </div>
+    </section>
+
+    <div class="container shop">
+      <aside class="filters" aria-label="Filters">
+        <h2>Filters</h2>
+
+        <label class="filter-label" for="sortSelect">Sort by</label>
+        <select id="sortSelect" aria-label="Sort products">
+          <option value="popular">Most popular</option>
+          <option value="new">Newest</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+        </select>
+
+        <fieldset class="filter-group" aria-labelledby="priceLegend">
+          <legend id="priceLegend">Price</legend>
+          <div class="price-range">
+            <input type="number" id="priceMin" placeholder="Min" min="0" />
+            <span>—</span>
+            <input type="number" id="priceMax" placeholder="Max" min="0" />
+          </div>
+        </fieldset>
+
+        <fieldset class="filter-group" aria-labelledby="ratingLegend">
+          <legend id="ratingLegend">Minimum rating</legend>
+          <select id="ratingSelect">
+            <option value="0">Any</option>
+            <option value="3">3★+</option>
+            <option value="4">4★+</option>
+            <option value="4.5">4.5★+</option>
+          </select>
+        </fieldset>
+
+        <button id="applyFilters" class="btn block">Apply</button>
+        <button id="clearFilters" class="btn block ghost">Clear</button>
+      </aside>
+
+      <section id="products" class="products" aria-label="Products">
+        <div class="toolbar">
+          <p id="resultsInfo" class="muted">Showing <span id="resultsCount">0</span> results</p>
+          <div class="view-controls">
+            <button id="gridView" class="icon-btn active" aria-pressed="true" title="Grid view">▦</button>
+            <button id="listView" class="icon-btn" aria-pressed="false" title="List view">≡</button>
+          </div>
+        </div>
+
+        <div id="productGrid" class="product-grid" role="list"></div>
+
+        <div class="load-more-wrap">
+          <button id="loadMore" class="btn ghost">Load more</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <aside id="cartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Shopping cart">
+    <div class="cart-inner">
+      <header class="cart-header">
+        <h2>Your cart</h2>
+        <button id="closeCart" class="icon-btn" aria-label="Close cart">✕</button>
+      </header>
+
+      <div id="cartItems" class="cart-items" aria-live="polite"></div>
+
+      <footer class="cart-footer">
+        <div class="cart-summary">
+          <span>Subtotal</span>
+          <strong id="cartTotal">₺0.00</strong>
+        </div>
+        <button id="checkoutBtn" class="btn block">Checkout</button>
+      </footer>
+    </div>
+  </aside>
+
+  <!-- Quick view modal -->
+  <div id="productModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button id="closeModal" class="icon-btn modal-close" aria-label="Close">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Trend-inspired Shop</h3>
+          <p class="muted">Built as a modern, accessible front-end demo.</p>
+        </div>
+        <div>
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Shipping</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Payment</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="copyright">© <span id="year"></span> Trend-inspired Shop</div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
